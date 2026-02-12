@@ -143,7 +143,33 @@ input{
     <input type="text" id="searchInput" placeholder="Search..." onkeyup="searchVideos()">  
 </div>  
   
-<div class="container" id="videoContainer"></div>  
+<div class="container" id="videoContainer">
+
+    <!-- Card 1 -->
+    <div class="card">
+        <a href="https://example.com" target="_blank">
+            <img src="https://via.placeholder.com/300x150">
+        </a>
+        <p>Sample Video One</p>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+        <a href="https://example.com" target="_blank">
+            <img src="https://via.placeholder.com/300x150">
+        </a>
+        <p>Demo Clip Two</p>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+        <a href="https://example.com" target="_blank">
+            <img src="https://via.placeholder.com/300x150">
+        </a>
+        <p>Hot Scene Three</p>
+    </div>
+
+</div>  
   
 <script>  
 let container = document.getElementById("videoContainer");  
@@ -156,14 +182,6 @@ function closeMenu(){
     document.getElementById("sidebar").style.left="-250px";  
 }  
   
-// ✅ Load data.html content
-fetch("data.html")
-.then(res => res.text())
-.then(data => {
-    container.innerHTML = data;
-});
-  
-// ✅ Simple Search (HTML based filter)
 function searchVideos(){  
     let value = searchInput.value.toLowerCase();  
     let cards = container.getElementsByClassName("card");  
@@ -180,4 +198,4 @@ function searchVideos(){
 </script>  
   
 </body>  
-</html>
+  </html>
