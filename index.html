@@ -145,16 +145,9 @@ input{
   
 <div class="container" id="videoContainer"></div>  
   
-<!-- ✅ Auto Cache Break Script -->  
-<script>  
-document.write('<script src="data/data.js?v=' + Date.now() + '"><\/script>');  
-</script>  
-  
 <script>  
 let container = document.getElementById("videoContainer");  
 let searchInput = document.getElementById("searchInput");  
-let itemsToShow = 6;  
-let filteredData = [];  
   
 function openMenu(){  
     document.getElementById("sidebar").style.left="0";  
@@ -163,50 +156,27 @@ function closeMenu(){
     document.getElementById("sidebar").style.left="-250px";  
 }  
   
-function shuffle(array){  
-    return array.sort(() => Math.random() - 0.5);  
-}  
+// ✅ Load data.html content
+fetch("data.html")
+.then(res => res.text())
+.then(data => {
+    container.innerHTML = data;
+});
   
-function loadVideos(){  
-    container.innerHTML = "";  
-    let dataToUse = filteredData.length ? filteredData : videoData;  
-    dataToUse = shuffle(dataToUse);  
-  
-    dataToUse.slice(0, itemsToShow).forEach(video=>{  
-        container.innerHTML += `  
-        <div class="card">  
-            <a href="${video.link}" target="_blank">  
-                <img src="${video.image}">  
-            </a>  
-            <p>${video.title}</p>  
-        </div>  
-        `;  
-    });  
-}  
-  
+// ✅ Simple Search (HTML based filter)
 function searchVideos(){  
     let value = searchInput.value.toLowerCase();  
+    let cards = container.getElementsByClassName("card");  
   
-    if(value === ""){  
-        filteredData = [];  
-    } else {  
-        filteredData = videoData.filter(video =>  
-            video.title.toLowerCase().includes(value)  
-        );  
+    for(let i=0;i<cards.length;i++){  
+        let text = cards[i].innerText.toLowerCase();  
+        if(text.includes(value)){  
+            cards[i].style.display="block";  
+        } else {  
+            cards[i].style.display="none";  
+        }  
     }  
-  
-    itemsToShow = 6;  
-    loadVideos();  
 }  
-  
-window.addEventListener("scroll", ()=>{  
-    if(window.innerHeight + window.scrollY >= document.body.offsetHeight - 100){  
-        itemsToShow += 4;  
-        loadVideos();  
-    }  
-});  
-  
-loadVideos();  
 </script>  
   
 </body>  
